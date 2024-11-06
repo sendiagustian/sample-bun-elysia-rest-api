@@ -1,0 +1,25 @@
+FROM oven/bun:latest AS builder
+WORKDIR /app
+
+COPY . .
+
+RUN bun install
+RUN bun run build:dev
+
+# Stage 2: Run the app
+FROM debian:stable-slim
+WORKDIR /app
+
+# Install necessary packages including ping
+RUN apt-get update && \
+    apt-get install -y libc6 iputils-ping && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN ulimit -n 65536
+
+COPY --from=builder /app/node_modules /app/node_modules/
+COPY --from=builder /app/build/* /app/build/
+
+EXPOSE 5050
+
+CMD ["./build/app.bun"]

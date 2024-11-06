@@ -1,0 +1,11 @@
+# Build docker
+docker build -f "Dockerfile-dev" -t sendiagustian/protonema/elysia/user-management-service .
+
+# Test run local container
+docker run -d --name user-management-service-elysia --hostname user-management-service-elysia --publish 5050:5050 sendiagustian/protonema/elysia/user-management-service
+
+# untuk masuk container
+docker exec -it user-management-service sh
+
+# delete image <none>
+docker rmi $(docker images --filter "dangling=true" -q --no-trunc)

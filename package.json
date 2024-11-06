@@ -1,15 +1,35 @@
 {
-  "name": "api-bun-elysia-template",
-  "version": "1.0.50",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
-  },
-  "dependencies": {
-    "elysia": "latest"
-  },
-  "devDependencies": {
-    "bun-types": "latest"
-  },
-  "module": "src/index.js"
+    "name": "api-bun-elysia-template",
+    "version": "1.0.50",
+    "scripts": {
+        "dev": "bun --watch src/index.ts",
+        "build:local": "bun --env-file=.env.local build src/index.ts --compile --minify --outfile build/app.bun --target bun",
+        "build:dev": "bun --env-file=.env.development build src/index.ts --compile --minify --outfile build/app.bun --target bun",
+        "build:prod": "bun --env-file=.env.production build src/index.ts --compile --minify --outfile build/app.bun --target bun",
+        "start": "NODE_ENV=production bun src/index.ts",
+        "test": "bun test"
+    },
+    "dependencies": {
+        "@elysiajs/swagger": "^1.1.1",
+        "@types/node": "^22.8.4",
+        "autocannon": "^8.0.0",
+        "elysia": "latest",
+        "jsonwebtoken": "^9.0.2",
+        "mysql2": "^3.11.0",
+        "uuid": "^10.0.0",
+        "winston": "^3.14.2",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.9.1",
+        "@types/autocannon": "^7.12.5",
+        "@types/jsonwebtoken": "^9.0.6",
+        "@types/uuid": "^10.0.0",
+        "bun-types": "latest",
+        "eslint": "^9.9.1",
+        "globals": "^15.9.0",
+        "prettier": "^3.3.3",
+        "typescript-eslint": "^8.3.0"
+    },
+    "module": "src/index.js"
 }
